@@ -43,14 +43,16 @@ def send_token():
   
   try: 
     #get the request tokens
-    redirect_url= auth.get_authorization_url()
+    link_url= auth.get_authorization_url()
     session['request_token']= (auth.request_token['oauth_token'],
       auth.request_token['oauth_token_secret'])
   except tweepy.TweepError:
     print 'Error! Failed to get request token'
   
+  return flask.render_template('welcome.html', link=link_url)
+
   #this is twitter's url for authentication
-  return flask.redirect(redirect_url)  
+  #return flask.redirect(redirect_url)  
 
 @app.route("/verify")
 def get_verification():
