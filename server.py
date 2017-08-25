@@ -77,11 +77,12 @@ def get_verification():
   #now you have access!
   api = tweepy.API(auth)
   username = api.auth.get_username()
+  user = api.get_user(api.auth.username)
   
-
   output_dict = {"username":username,
-                  "oauth_token":token[0],
-                  "oauth_token_secret":token[1]}
+                 "user_id":user.id,
+                  "oauth_token":api.auth.access_token,
+                  "oauth_token_secret":api.auth.access_token_secret}
   with open(os.path.join("keys",username+".json"), "w") as f:
     f.write(json.dumps(output_dict))
 
