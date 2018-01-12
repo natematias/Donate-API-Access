@@ -32,7 +32,7 @@ app.secret_key = config['secret_key']
 
 CONSUMER_TOKEN=config['consumer_token']
 CONSUMER_SECRET=config['consumer_secret']
-CALLBACK_URL = 'http://localhost:5000/verify'
+CALLBACK_URL = 'http://civictechai.media.mit.edu:5010/verify'
 db = {}#dict() #you can save these values to a database
 
 @app.route("/")
@@ -47,7 +47,7 @@ def send_token():
     session['request_token']= (auth.request_token['oauth_token'],
       auth.request_token['oauth_token_secret'])
   except tweepy.TweepError:
-    print 'Error! Failed to get request token'
+    print('Error! Failed to get request token')
   
   return flask.render_template('welcome.html', link=link_url)
 
@@ -72,7 +72,7 @@ def get_verification():
 #  auth.get_access_token(verifier)
 
   except tweepy.TweepError:
-        print 'Error! Failed to get access token.'
+        print('Error! Failed to get access token.')
   
   #now you have access!
   api = tweepy.API(auth)
@@ -97,6 +97,6 @@ def success():
   return flask.render_template('success.html', username=session['username'])
 
 if __name__ == "__main__":
-  app.run(debug=True)
+  app.run(host='0.0.0.0', port=5010)#debug=True)
   #app.run()
 
